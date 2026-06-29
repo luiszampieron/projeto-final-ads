@@ -17,9 +17,18 @@ export default function Login() {
   const [state, formAction] = useActionState(login, undefined)
 
   return (
-    <div className="card shadow border-0 rounded-4">
-      <div className="card-body p-4">
-        <h2 className="text-center mb-4">Login</h2>
+    <div className="card login-card border-0 rounded-4">
+      <div className="card-body p-4 p-sm-5">
+        <div className="text-center mb-4">
+          <span className="d-inline-flex align-items-center justify-content-center rounded-4 mb-3" style={{ width: 56, height: 56, background: 'var(--verde-100)', color: 'var(--verde-900)', fontWeight: 900 }}>
+            SO
+          </span>
+          <p className="section-eyebrow mb-2">Acesso seguro</p>
+          <h2 className="mb-1">Entrar no sistema</h2>
+          <p className="text-muted mb-0 small">
+            Use seu e-mail e senha para continuar.
+          </p>
+        </div>
 
         {state?.error && (
           <div className="alert alert-danger" role="alert">
@@ -60,6 +69,13 @@ export default function Login() {
             Entrar
           </button>
         </form>
+
+        <div className="mt-4 p-3 rounded-4" style={{ background: 'var(--menta-50)' }}>
+          <p className="small text-muted mb-1">Usuário demo</p>
+          <p className="small mb-0">
+            <strong>demo@sistema.local</strong> / <strong>senha123</strong>
+          </p>
+        </div>
       </div>
     </div>
   )

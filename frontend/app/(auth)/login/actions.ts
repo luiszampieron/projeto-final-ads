@@ -51,5 +51,5 @@ export async function login(
     path: '/',
   })
 
-  redirect('/home')
+  redirect('/dashboard')
 }
