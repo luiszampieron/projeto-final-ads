@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { apiServerJson } from '@/lib/api-server'
+import { notFound } from 'next/navigation'
+import { ApiRequestError, apiServerJson } from '@/lib/api-server'
 import type { Produto } from '@/types/produtos'
 import { atualizarProduto, removerProduto } from '../actions'
 
@@ -15,13 +16,24 @@ export default async function ProdutoPage({
   params,
   searchParams,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
   searchParams?: Promise<Record<string, string | string[] | undefined>>
 }) {
+  const { id } = await params
   const paramsSearch = searchParams ? await searchParams : {}
   const sucesso = getMensagem(paramsSearch, 'sucesso')
   const erro = getMensagem(paramsSearch, 'erro')
-  const produto = await apiServerJson<Produto>(`/produtos/${params.id}`)
+  let produto: Produto
+
+  try {
+    produto = await apiServerJson<Produto>(`/produtos/${id}`)
+  } catch (error) {
+    if (error instanceof ApiRequestError && error.status === 404) {
+      notFound()
+    }
+
+    throw error
+  }
 
   return (
     <section className="row g-4">
