@@ -5,6 +5,7 @@ declare module 'next/link' {
 }
 
 declare module 'next/navigation' {
+  export function notFound(): never
   export function redirect(url: string): never
   export function revalidatePath(path: string): void
   export function useRouter(): any
