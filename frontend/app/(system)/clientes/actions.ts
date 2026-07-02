@@ -29,7 +29,7 @@ export async function criarCliente(formData: FormData) {
   const observacoes = String(formData.get('observacoes') ?? '').trim()
 
   if (!nome) {
-    redirect('/clientes?erro=Informe%20o%20nome%20do%20cliente.')
+    redirect('/clientes/novo?erro=Informe%20o%20nome%20do%20cliente.')
   }
 
   const response = await apiServerFetch('/clientes', {
@@ -39,7 +39,7 @@ export async function criarCliente(formData: FormData) {
 
   if (!response.ok) {
     const mensagem = await obterErro(response, 'Não foi possível criar o cliente.')
-    redirect(`/clientes?erro=${encodeURIComponent(mensagem)}`)
+    redirect(`/clientes/novo?erro=${encodeURIComponent(mensagem)}`)
   }
 
   revalidatePath('/clientes')

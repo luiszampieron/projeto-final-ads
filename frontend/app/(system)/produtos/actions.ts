@@ -30,12 +30,12 @@ export async function criarProduto(formData: FormData) {
   const ativo = formData.get('ativo') === 'on'
 
   if (!nome) {
-    redirect('/produtos?erro=Informe%20o%20nome%20do%20produto.')
+    redirect('/produtos/novo?erro=Informe%20o%20nome%20do%20produto.')
   }
 
   const precoUnitario = Number(precoRaw.replace(',', '.'))
   if (!precoRaw || Number.isNaN(precoUnitario) || precoUnitario < 0) {
-    redirect('/produtos?erro=Informe%20um%20preço%20unitário%20válido.')
+    redirect('/produtos/novo?erro=Informe%20um%20preço%20unitário%20válido.')
   }
 
   const response = await apiServerFetch('/produtos', {
@@ -52,7 +52,7 @@ export async function criarProduto(formData: FormData) {
 
   if (!response.ok) {
     const mensagem = await obterErro(response, 'Não foi possível criar o produto.')
-    redirect(`/produtos?erro=${encodeURIComponent(mensagem)}`)
+    redirect(`/produtos/novo?erro=${encodeURIComponent(mensagem)}`)
   }
 
   revalidatePath('/produtos')
